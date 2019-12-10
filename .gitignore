@@ -11,6 +11,7 @@
 *.xml
 *.gz
 *.toc
+*.DS_Store
 
 # Not ignore these files
-!Images/figure.pdf
+!tex/Images/figure.pdf
