@@ -1,0 +1,16 @@
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.lof
+*.log
+*.lot
+*.nlo
+*.nls
+*.pdf
+*.xml
+*.gz
+*.toc
+
+# Not ignore these files
+!Images/figure.pdf

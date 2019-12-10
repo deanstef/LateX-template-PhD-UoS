@@ -1,0 +1,91 @@
+%% ----------------------------------------------------------------
+%% ----------------------------------------------------------------
+%% ----------------------------------------------------------------
+%TODO Change info below:
+\dept{http://www.ecs.soton.ac.uk}{Electronics and Computer Science}
+\fact{https://www.southampton.ac.uk/about/departments/faculties/engineering-and-physical-sciences.page}{Faculty of Engineering and Physical Sciences}
+\grp{https://cyber.southampton.ac.uk}{Cyber Security Research Group}
+
+\title      {Your title here}
+\authors    {
+	\texorpdfstring{\href{mailto:email@email.com}{Name}}{Name}}
+
+\supervisor{
+	{\texorpdfstring{\href{mailto:first@soton.ac.uk}{First}}{First}}\\
+	{\texorpdfstring{\href{mailto:second@soton.ac.uk}{Second}}{Second}}
+	}
+	
+\examiner{
+	{\texorpdfstring{\href{mailto:someone@something.com}{First}}{First}}\\
+	{\texorpdfstring{\href{mailto:someone@something.com}{Second}}{Second}}
+	}
+
+
+\addresses  {\groupname\\\deptname\\\univname}
+\date       {\today}
+
+\subject    {}
+\keywords   {}
+
+%TODO Choose your citation style:
+\usepackage[backend=biber,
+		style=%Uncomment as needed. See https://www.overleaf.com/learn/latex/Biblatex_bibliography_styles
+		numeric%
+		%authoryear%
+		%alphabetic%
+		%authortitle%
+		%verbose%
+		%reading%
+		,
+		citestyle=%Uncomment as needed. See https://www.overleaf.com/learn/latex/Biblatex_citation_styles
+		numeric%
+		%numeric-comp%
+		%numeric-verb%
+		%alphabetic%
+		%alphabetic-verb%
+		%authoryear%
+		%authoryear-comp%
+		%authoryear-ibid%
+		%authoryear-icomp%
+		%authortitle%
+		%authortitle-comp%
+		%authortitle-ibid%
+		%authortitle-icomp%
+		%authortitle-terse%
+		%authortitle-tcomp%
+		%authortitle-ticomp%
+		%verbose%
+		%reading%
+				,]{biblatex}
+%TODO Add your bib files below:
+\addbibresource{../Bibliography/biblio.bib} %<------- Your bib files here. Add additional bib files in new lines below as needed.
+
+%TODO Change the default fonts (list of available fonts: http://www.tug.dk/FontCatalogue/)
+\renewcommand{\sfdefault}{lmr}  %<---- To change the default font
+\renewcommand{\familydefault}{\sfdefault}
+
+%TODO Choose the colour for links in the cover by uncommenting one of the colours below
+\defaultcolour{%
+	black%
+	%blue%
+	%brown%
+	%cyan%
+	%darkgray%
+	%gray%
+	%green%
+	%lightgray%
+	%lime%
+	%magenta%
+	%olive%
+	%orange%
+	%pink%
+	%purple%
+	%red%
+	%teal%
+	%violet%
+	%white%
+	%yellow%
+}
+%% ----------------------------------------------------------------
+%% ----------------------------------------------------------------
+%% ----------------------------------------------------------------
