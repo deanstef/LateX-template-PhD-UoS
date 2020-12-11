@@ -77,8 +77,7 @@
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
 
-\InputIfFileExists{caption.sty}{\usepackage[centerlast,small,sc]{caption}}{\usepackage[centerlast,small,sc]{caption2}}
-
+\usepackage[centerlast,small,sc]{caption}
 \setlength{\captionmargin}{20pt}
 \newcommand{\fref}[1]{Figure~\ref{#1}}
 \newcommand{\tref}[1]{Table~\ref{#1}}
@@ -102,8 +101,7 @@
 \usepackage{booktabs}
 \usepackage{rotating}
 
-\InputIfFileExists{listings.sty}{\usepackage{listings}}{\usepackage{lstpatch}}
-
+\usepackage{listings}
 \lstset{captionpos=b,
         frame=tb,
         basicstyle=\scriptsize\ttfamily,
