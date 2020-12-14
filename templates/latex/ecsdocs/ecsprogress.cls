@@ -7,13 +7,18 @@
 %% ecsdocs.dtx  (with options: `progress')
 %% 
 %% Copyright (C) 2001 by Steve R. Gunn
+%% Modifications Copyright (C) 2020 by Stefano De Angelis
 %% 
-%% This file is part of the ECSDocs class distribution
+%% This file is part of the ECSDocs and UoSDocs classes distribution
 %% 
-\NeedsTeXFormat{LaTeX2e}[1996/12/01]
-\ProvidesClass{ecsprogress}
-              [2003/25/04 v1.6
+\NeedsTeXFormat{LaTeX2e}[2007/02/26]
+\ProvidesClass{../ecsprogress}
+              [2020/12/12 v1.0
    LaTeX document class]
+%% ------------ Class/Formating Adjustment ----------------------
+%% Adjust the book class to match the requirements
+%% Set spacing, line and paragraph options
+%% Set LaTeX builder options (work break penalties etc.)
 \def\baseclass{book}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{\baseclass}}
 \def\@checkoptions#1#2{
@@ -31,6 +36,11 @@
 \LoadClass{\baseclass}
 \newcommand\bhrule{\typeout{------------------------------------------------------------------------------}}
 \newcommand\btypeout[1]{\bhrule\typeout{\space #1}\bhrule}
+%% \usepackage[T1]{fontspec}
+\usepackage[defaultsans]{droidsans}
+\usepackage{mathpazo}
+%%\usepackage[T1]{fontenc} %This may not be necessary for english only text
+
 \usepackage{setspace}
 \onehalfspacing
 \setlength{\parindent}{0pt}
@@ -52,18 +62,37 @@
 \clubpenalty=9999                 % Almost no orphans at top of page.
 \interfootnotelinepenalty=9999    % Almost never break footnotes.
 \usepackage{fancyhdr}
-\lhead[\rm\thepage]{\fancyplain{}{\sl{\rightmark}}}
-\rhead[\fancyplain{}{\sl{\leftmark}}]{\rm\thepage}
+% New heading styles %
+\fancyhead[LE]{\textrm\thepage}
+\fancyhead[LO]{\fancyplain{}{\textsl{\rightmark}}}
+\fancyhead[RE]{\fancyplain{}{\textsl{\leftmark}}}
+\fancyhead[RO]{\textrm\thepage}
+%% Old Heading Styles %%
+%\lhead[\rm\thepage]{\fancyplain{}{\sl{\rightmark}}}
+%\rhead[\fancyplain{}{\sl{\leftmark}}]{\rm\thepage}
+%% %%
 \chead{}\lfoot{}\rfoot{}\cfoot{}
 \pagestyle{fancy}
-\renewcommand{\chaptermark}[1]{\btypeout{\thechapter\space #1}\markboth{\@chapapp\ \thechapter\ #1}{\@chapapp\ \thechapter\ #1}}
-\renewcommand{\sectionmark}[1]{}
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyhead[OR]{\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+}
+% New Chapter and sec styles %
+\renewcommand{\chaptermark}[1]{\btypeout{\thechapter.\space #1}\markboth{\chaptername\ \thechapter.\hspace{1em}#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection.\hspace{1em}#1}}
+%% Old chapter and sec styles %%
+%\renewcommand{\chaptermark}[1]{\btypeout{\thechapter\space #1}\markboth{\@chapapp\ \thechapter\ #1}{\@chapapp\ \thechapter\ #1}}
+%\renewcommand{\sectionmark}[1]{}
+%% %%
 \renewcommand{\subsectionmark}[1]{}
 \def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
 \hbox{}
 \thispagestyle{empty}
 \newpage
 \if@twocolumn\hbox{}\newpage\fi\fi\fi}
+%% -------------------- Figure/Table/Eq/Listing Stying --------------------
+%% Set the styling for non text elements of the document
 \usepackage{amsmath,amsfonts,amssymb,amscd,amsthm,xspace}
 \theoremstyle{plain}
 \newtheorem{example}{Example}[chapter]
@@ -76,8 +105,8 @@
 \newtheorem{definition}[theorem]{Definition}
 \theoremstyle{remark}
 \newtheorem{remark}[theorem]{Remark}
-
-\usepackage[centerlast,small,sc]{caption}
+\usepackage[justification=centerlast,font=small,labelfont=sc]{caption} %
+%\usepackage[centerlast,small,sc]{caption}
 \setlength{\captionmargin}{20pt}
 \newcommand{\fref}[1]{Figure~\ref{#1}}
 \newcommand{\tref}[1]{Table~\ref{#1}}
@@ -97,11 +126,11 @@
 \setcounter{dbltopnumber}{9}
 \usepackage{graphicx}
 \usepackage{epstopdf}
-\usepackage[scriptsize]{subfigure}
+\usepackage[]{subcaption} %
+%\usepackage[scriptsize]{subfigure}
 \usepackage{booktabs}
 \usepackage{rotating}
-
-\usepackage{listings}
+\usepackage{listings} %
 \lstset{captionpos=b,
         frame=tb,
         basicstyle=\scriptsize\ttfamily,
@@ -123,11 +152,18 @@
 \pdfstringdefDisableCommands{
    \let\\\space
 }
-\newcommand*{\supervisor}[1]{\def\supname{#1}}
-\newcommand*{\examiner}[1]{\def\examname{#1}}
+%% --------------------- Organisational Structure ----------------------
+%\newcommand*{\supervisor}[1]{\def\supname{#1}}
+%\newcommand*{\examiner}[1]{\def\examname{#1}}
+\newcommand*{\supervisor}[2][]{\def\supname{#2}\def\supplural{#1}}
+\newcommand*{\examiner}[2][]{\def\examname{#2}\def\examplural{#1}}
 \newcommand*{\degree}[1]{\def\degreename{#1}}
 \newcommand*{\authors}[1]{\def\authornames{#1}}
+\newcommand*{\qualifications}[1]{\def\quals{#1}} %
 \newcommand*{\addresses}[1]{\def\addressnames{#1}}
+\newcommand*{\doi}[1]{\def\doicode{#1}} %
+\newcommand*{\volume}[2]{\def\volno{#1}\def\volof{#2}} %
+\newcommand*{\orcidid}[1]{\def\orcid{#1}} %
 \newcommand*{\university}[1]{\def\univname{#1}}
 \newcommand*{\UNIVERSITY}[1]{\def\UNIVNAME{#1}}
 \newcommand*{\department}[1]{\def\deptname{#1}}
@@ -138,43 +174,68 @@
 \newcommand*{\FACULTY}[1]{\def\FACNAME{#1}}
 \newcommand*{\subject}[1]{\def\subjectname{#1}}
 \newcommand*{\keywords}[1]{\def\keywordnames{#1}}
+%% --------------------- Organisational Structure ----------------------
+\doi{} %
 \supervisor  {}
 \examiner    {}
 \degree      {}
 \authors     {}
-\university  {\texorpdfstring{\href{http://www.soton.ac.uk}
+\qualifications{} %
+\orcidid{} %
+\volume{}{} %
+\university  {\texorpdfstring{\href{http://www.southampton.ac.uk}
 		{University of Southampton}}
-	{University of Southampton}}
-\UNIVERSITY  {\texorpdfstring{\href{http://www.soton.ac.uk}
-		{UNIVERSITY OF SOUTHAMPTON}}
-	{UNIVERSITY OF SOUTHAMPTON}}
-\department  {\texorpdfstring{\href{http://www.ecs.soton.ac.uk}
-		{School of Electronics and Computer Science}}
-	{School of Electronics and Computer Science}}
-\DEPARTMENT  {\texorpdfstring{\href{http://www.ecs.soton.ac.uk}
-		{SCHOOL OF ELECTRONICS AND COMPUTER SCIENCE}}
-	{SCHOOL OF ELECTRONICS AND COMPUTER SCIENCE}}
-\group       {\texorpdfstring{\href{https://www.wais.ecs.soton.ac.uk}
-		{Web and Internet Science Research Group}}
-	{Web and Internet Science Research Group}}
-\GROUP       {\texorpdfstring{\href{http://www.isis.ecs.soton.ac.uk}
-		{WEB AND INTERNET SCIENCE RESEARCH GROUP}}
-	{WEB AND INTERNET SCIENCE RESEARCH GROUP}}
-\faculty     {\texorpdfstring{\href{https://www.feps.soton.ac.uk}
-		{Faculty of Engineering and Physical Sciences}}
-	{Faculty of Engineering and Physical Sciences}}
-\FACULTY     {\texorpdfstring{\href{https://www.feps.soton.ac.uk}
-		{FACULTY OF ENGINEERING AND PHYSICAL SCIENCES}}
-	{FACULTY OF ENGINEERING AND PHYSICAL SCIENCES}}
+		{University of Southampton}}
+% New default values %
+\UNIVERSITY  {\MakeUppercase{\univname}}
+\department  {School of Electronics and Computer Science}
+\DEPARTMENT  {\MakeUppercase{\deptname}}
+\group       {Cyber Security Group}
+\GROUP       {\MakeUppercase{\groupname}}
+\faculty     {Faculty of Engineering and Physical Science}
+\FACULTY     {\MakeUppercase{\facname}}
+%% Old default values %%
+%\UNIVERSITY  {\texorpdfstring{\href{http://www.soton.ac.uk}
+%		{UNIVERSITY OF SOUTHAMPTON}}
+%	{UNIVERSITY OF SOUTHAMPTON}}
+%\department  {\texorpdfstring{\href{http://www.ecs.soton.ac.uk}
+%		{School of Electronics and Computer Science}}
+%	{School of Electronics and Computer Science}}
+%\DEPARTMENT  {\texorpdfstring{\href{http://www.ecs.soton.ac.uk}
+%		{SCHOOL OF ELECTRONICS AND COMPUTER SCIENCE}}
+%	{SCHOOL OF ELECTRONICS AND COMPUTER SCIENCE}}
+%\group       {\texorpdfstring{\href{https://www.wais.ecs.soton.ac.uk}
+%		{Web and Internet Science Research Group}}
+%	{Web and Internet Science Research Group}}
+%\GROUP       {\texorpdfstring{\href{http://www.isis.ecs.soton.ac.uk}
+%		{WEB AND INTERNET SCIENCE RESEARCH GROUP}}
+%	{WEB AND INTERNET SCIENCE RESEARCH GROUP}}
+%\faculty     {\texorpdfstring{\href{https://www.feps.soton.ac.uk}
+%		{Faculty of Engineering and Physical Sciences}}
+%	{Faculty of Engineering and Physical Sciences}}
+%\FACULTY     {\texorpdfstring{\href{https://www.feps.soton.ac.uk}
+%		{FACULTY OF ENGINEERING AND PHYSICAL SCIENCES}}
+%	{FACULTY OF ENGINEERING AND PHYSICAL SCIENCES}}
+%%
 \addresses   {}
 \subject     {}
 \keywords    {}
+
+% new %
+\usepackage{titling}
+\AtBeginDocument{
+  \hypersetup{pdftitle={\thetitle}}
+  \hypersetup{pdfsubject={\subjectname}}
+  \hypersetup{pdfauthor={\authornames}}
+  \hypersetup{pdfkeywords={\keywordnames}}
+}
+%%
 \renewcommand\maketitle{
   \btypeout{Title Page}
-  \hypersetup{pdftitle={\@title}}
-  \hypersetup{pdfsubject=\subjectname}
-  \hypersetup{pdfauthor=\authornames}
-  \hypersetup{pdfkeywords=\keywordnames}
+  %\hypersetup{pdftitle={\@title}}
+  %\hypersetup{pdfsubject=\subjectname}
+  %\hypersetup{pdfauthor=\authornames}
+  %\hypersetup{pdfkeywords=\keywordnames}
   \thispagestyle{empty}
   \begin{titlepage}
     \let\footnotesize\small
@@ -185,22 +246,28 @@
     \vskip 60\p@
     \begin{center}
       \setlength{\parskip}{0pt}
-      {\large\textbf{\UNIVNAME}\par}
+      %{\large\textbf{\UNIVNAME}\par}
+      {\scshape\LARGE\textbf{\univname}\par}
+      \bigskip %
       {\large \facname \par}
       {\large \deptname \par}
       \vfill
       {\large A progress report submitted for continuation}
       {\large towards a PhD \par}
       \vfill
-      {\normalsize Supervised by:\\ \supname \par}
-      {\normalsize Examined by:\\ \examname \par}
+      %{\normalsize Supervised by:\\ \supname \par}
+      %{\normalsize Examined by:\\ \examname \par}
+      {\normalsize Supervisor\supplural: \supname \par}
+      \ifthenelse{\isempty{\examname}}
+      {\normalsize Examiner\examplural: \examname \par}{}
       \vfill
       \hspace{6mm}\parbox[t][51mm][s]{89mm}{
         \center
         \vfill
         {\large \bf \@title \par}
         \vfill
-        {\normalsize by \authornames \par}
+        %{\normalsize by \authornames \par}
+        {\normalsize \textit{by} \textbf\authornames \par}
         \vfill
         {\normalsize \@date \par}
         \vfill
@@ -217,7 +284,7 @@
   \global\let\@thanks\@empty
   \global\let\@author\@empty
   \global\let\@date\@empty
-  \global\let\@title\@empty
+  %\global\let\@title\@empty
   \global\let\title\relax
   \global\let\author\relax
   \global\let\date\relax
@@ -229,14 +296,20 @@
   \btypeout{Abstract Page}
   \thispagestyle{empty}
   \null\vfil
-  \begin{center}
+%  \begin{center}
+  \begingroup %
+   \centering  %
     \setlength{\parskip}{0pt}
-    {\normalsize \UNIVNAME \par}
+    %{\normalsize \UNIVNAME \par}
+    {\textsc\normalsize \univname \par} %
     \bigskip
-    {\underline{ABSTRACT} \par}
+    %{\underline{ABSTRACT} \par}
+    {\underline{Abstract} \par} %
     \bigskip
-    {\normalsize \FACNAME \par}
-    {\normalsize \DEPTNAME \par}
+    %{\normalsize \FACNAME \par}
+    %{\normalsize \DEPTNAME \par}
+    {\textsc\normalsize \facname \par} %
+    {\textsc\normalsize \deptname \par} %
     \bigskip
     {\normalsize \underline{A progress report submitted for continuation towards a PhD}\par}
     \bigskip
@@ -244,12 +317,14 @@
     \medskip
     {\normalsize by \authornames \par}
     \bigskip
-  \end{center}
+%  \end{center}
+  \endgroup
 }
 {
   \vfil\vfil\vfil\null
   \cleardoublepage
 }
+\usepackage[nottoc]{tocbibind}         % New --> Put the Lists, Glossary, Biblog and Idx in the contents
 \addtocounter{secnumdepth}{1}
 \setcounter{tocdepth}{6}
 \newcounter{dummy}
@@ -257,6 +332,7 @@
 \refstepcounter{dummy}
 \addcontentsline{toc}{chapter}{#1}}
 \renewcommand\tableofcontents{
+\hypersetup{linkcolor={black}} %
 \btypeout{Table of Contents}
 \begin{spacing}{1}{
     \setlength{\parskip}{1pt}
@@ -274,7 +350,8 @@
 }\end{spacing}
 }
 \renewcommand\listoffigures{
-\btypeout{List of Figures}
+\addtotoc{\listfigurename} %
+%\btypeout{List of Figures}
 \begin{spacing}{1}{
     \setlength{\parskip}{1pt}
     \if@twocolumn
@@ -291,7 +368,8 @@
 }\end{spacing}
 }
 \renewcommand\listoftables{
-\btypeout{List of Tables}
+\addtotoc{\listtablename} %
+%\btypeout{List of Tables}
 \begin{spacing}{1}{
     \setlength{\parskip}{1pt}
     \if@twocolumn
@@ -307,6 +385,17 @@
     \cleardoublepage
 }\end{spacing}
 }
+%\newcommand\listsymbolname{Definitions and Abbreviations}
+%\usepackage{longtable}
+%\newcommand\listofsymbols[2]{
+%\btypeout{\listsymbolname}
+%\addtotoc{\listsymbolname}
+%    \chapter*{\listsymbolname
+%      \@mkboth{
+%          \MakeUppercase\listsymbolname}{\MakeUppercase\listsymbolname}}
+%\begin{longtable}[c]{#1}#2\end{longtable}\par
+%    \cleardoublepage
+%}
 \newcommand\listsymbolname{Nomenclature}
 \usepackage{longtable}
 \newcommand\listofsymbols[2]{
@@ -318,6 +407,67 @@
 \begin{longtable}[c]{#1}#2\end{longtable}\par
     \cleardoublepage
 }
+
+%% New %%
+\newcommand\addmaterialname{List of Additional Material}
+\newcommand\listofaddmaterial{
+\addtotoc{\addmaterialname}
+\begin{spacing}{1}{
+    \setlength{\parskip}{1pt}
+    \if@twocolumn
+      \@restonecoltrue\onecolumn
+    \else
+      \@restonecolfalse
+    \fi
+    \chapter*{\addmaterialname
+      \@mkboth{
+          \MakeUppercase\addmaterialname}{\MakeUppercase\addmaterialname}}
+    \@starttoc{lom}
+    \if@restonecol\twocolumn\fi
+    \cleardoublepage
+}\end{spacing}
+}
+\newcommand\addtolom[1]{%
+\addtocontents{lom}{\protect\contentsline{chapter}{\protect\numberline{}#1}{}{}}
+}
+\usepackage{xifthen}
+\newcommand\authorshipdeclaration[1]{
+\btypeout{Declaration of Authorship}
+\addtotoc{Declaration of Authorship}
+\thispagestyle{plain}
+\null\vfil
+\vskip 60\p@
+\begin{center}{\Large\bf Declaration of Authorship \par}\end{center}
+I declare that this thesis and the work presented in it is my own and has
+been generated by me as the result of my own original research.
+
+I confirm that:
+
+\begin{enumerate}
+\item This work was done wholly or mainly while in candidature for a research degree at this University;
+\item Where any part of this thesis has previously been submitted for a degree or any other qualification at this University or any other institution, this has been clearly stated;
+\item Where I have consulted the published work of others, this is always clearly attributed;
+\item Where I have quoted from the work of others, the source is always given. With the exception of such quotations, this thesis is entirely my own work;
+\item I have acknowledged all main sources of help;
+\item Where the thesis is based on work done by myself jointly with others, I have made clear exactly what was done by others and what I have contributed myself;
+
+\ifthenelse{\isempty{#1}}
+{\item None of this work has been published before submission}
+{\item Parts of this work have been published as: #1}
+\end{enumerate}
+
+\vspace{15.0mm}
+\begin{minipage}[t]{0.7\textwidth}
+  Signed:..........................................................................
+\end{minipage}%
+\begin{minipage}[t]{0.3\textwidth}
+  Date:..................
+\end{minipage}
+\vfil\vfil\null
+\cleardoublepage
+}
+%% %%
+
 \newcommand\acknowledgements[1]{
 \btypeout{Acknowledgements}
 \addtotoc{Acknowledgements}
@@ -338,15 +488,32 @@
 \vfil\null
 \cleardoublepage
 }
-\newcommand\authorshipdeclaration[1]{ }
+%\newcommand\authorshipdeclaration[1]{ }
+
+% New %
+% TODO: List Appendixs under one single Appendix voice
+%\renewcommand\bibname{References}
+\let\oldappendix\appendix % Put full appendix name in ToC
+\renewcommand{\appendix}{%
+  \oldappendix
+  \let\oldacl@pp=\addcontentsline
+  \def\addcontentsline##1##2##3{\oldacl@pp{##1}{##2}{\appendixname\space ##3}}
+}
+%\let\oldbackmatter\backmatter
+%\def\backmatter{%
+%  \oldbackmatter
+%  \let\addcontentsline=\oldacl@pp
+%  }
+% Old integrated with new (recover \addcontentsline) %
 \renewcommand\backmatter{
+  \let\addcontentsline=\oldacl@pp
   \if@openright
     \cleardoublepage
   \else
     \clearpage
   \fi
-  \addtotoc{\bibname}
-  \btypeout{\bibname}
+  %\addtotoc{\bibname}
+  %\btypeout{\bibname}
   \@mainmatterfalse}
 \endinput
 %%

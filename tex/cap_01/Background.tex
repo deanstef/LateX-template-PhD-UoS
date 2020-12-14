@@ -25,9 +25,42 @@
 		\caption[How the caption will appear in the list of figures]{How the caption will be in text. Here citations can be included \cite{Fiat:1987}.}
 		\label{fig:figure}
 	\end{figure}
+	
+This page shows you a subfigure example in \cref{fig:figsubex}.
+\begin{figure}[!htb]
+  \centering
+  \subcaptionbox{The left caption}{
+    \includegraphics[width=4.2cm]{figure}
+    \label{fig:figsubex:left}
+  }
+  \subcaptionbox{The right caption}{
+    \includegraphics[width=4.2cm]{figure}
+    \label{fig:figsubex:right}
+  }
+  \caption{A doubly colourful picture.}
+  \label{fig:figsubex}
+\end{figure}
 
-This is how the default reference command \verb|\ref{fig:figure}| outputs cross-references: \ref{fig:figure}.\\
+
+This is how the default reference command \verb|\ref{fig:figure}| outputs cross-references: \ref{fig:figure}.
 Using the \verb|cleveref| package, cross-referencing can be smarter. 
 Here's the same reference, but using the command \verb|\cref{fig:figure}|: \cref{fig:figure}.
 Or, using \verb|\Cref{fig:figure}|: \Cref{fig:figure}.
+
+Template specific instructions can be found at:
+\url{https://git.soton.ac.uk/el7g15/uos-latex-template-instructions}.
+
+\Cref{Table:tabex} illustrates the results of some arbitrary example work.
+\begin{table}[!htb]
+  \centering
+  \begin{tabular}{cc}
+  \toprule
+  \textbf{Training Error} & \textbf{Testing Error}\\
+  \midrule
+  0 & $\infty$\\
+  \bottomrule
+  \end{tabular}
+  \caption{The Results}
+  \label{Table:tabex}
+\end{table}
 \end{document}
