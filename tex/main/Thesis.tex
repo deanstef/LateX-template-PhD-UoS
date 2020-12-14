@@ -1,0 +1,100 @@
+%% ----------------------------------------------------------------
+%% Thesis.tex
+%% ---------------------------------------------------------------- 
+\documentclass[oneside]{../ecsthesis}    % Use the progress Style
+\graphicspath{{../Images/}{./Images/}{../../Images/}}   % Location of your graphics files
+%%----------Packages-go-here------------------------------------
+\usepackage{subfiles} %<------ Instead of \input{file} or \include{file}, use \subfile{file}. The child documents must contain:
+% \documentclass[main.tex]{subfiles}
+% \begin{document}
+% ..... some content ......
+% \end{document}
+\hypersetup{pdfstartpage=3}    % Set first page to skip copyright declaration
+
+%USE COMMON PREAMBLE
+\input{../Preamble/Preamble.tex}
+
+%TODO Personalise the document changing the info in the document below:
+\input{../Preamble/Info.tex}
+
+\qualifications{[Insert Previous Qualifications, for example MEng]}
+\orcidid{0000-0002-1825-0097}
+\doi{10.1002/0470841559.ch1}
+\volume{n}{m} %Optional Volume Numbering Volume n of m
+
+\begin{document}
+\pagenumbering{gobble} % removes page number
+\copyrightDeclaration{} % !!! Comment this line when printing the hardcopy !!!
+\raggedright                  %% Set the style to Left justification, remove for fill justification
+                              %% Must be done after copyrightDeclaration
+\frontmatter
+\maketitle
+\input{../Preamble/Abstract.tex} %TODO <---------- Abstract goes here
+
+\hypersetup{linkcolor=black}
+\pdfbookmark[0]{\contentsname}{toc} % Add pdf bookmark for contents page for navigation
+\tableofcontents 
+%\cleardoublepage \phantomsection \addcontentsline{toc}{chapter}{List of Figures} 
+\listoffigures 
+%\cleardoublepage \phantomsection \addcontentsline{toc}{chapter}{List of Tables} 
+\listoftables 
+%\cleardoublepage 
+%% The List of listings does not, by default, appear in the ToC, so....
+\addtotoc{Listings}
+\lstlistoflistings
+\listofaddmaterial
+\addtolom{Material Name e.g Map}
+\addtolom{Material Name e.g CD}
+\addtolom{Test Material}
+%% ---------- AUTHORSHIP DECLARATION/ ACKNOW. / DEDICATORY ----------
+%% Either include citations like below (as many as required spaced with commas or 'and').
+%% \bibentry command must be used here with prepublished papers
+%\authorshipdeclaration{\bibentry{Gunn:2001:pdflatex}\newline\bibentry{Lovell:2011:updated}\newline\bibentry{Gunn:2011:updated2}}
+%% Or state no citations like below
+\authorshipdeclaration{}
+%% -----------------------
+\acknowledgements{Thanks to \dots}
+\dedicatory{To \dots}
+
+%List of abbreviations using the nomencl package:
+\renewcommand{\nomname}{\Huge Abbreviations} \phantomsection \addcontentsline{toc}{chapter}{Abbreviations}
+%To define abbreviations use: \nom{ABRV.}{Explanation} - the ABRV will also be printed
+\printnomenclature %TODO to make nomenclature appear you need to run in terminal: makeindex filename.nlo -s nomencl.ist -o filename.nls %to record entries, use \nom{ABR.}{full entry}
+
+\addtocontents{toc}{\protect\vspace{6pt}}
+
+\cleardoublepage \phantomsection \addcontentsline{toc}{chapter}{Introduction}
+
+%\cleardoublepage \dedicatory{To \dots} \cleardoublepage
+
+\mainmatter
+
+%% ----------------------------------------------------------------------------------
+%% ------------------ Chapter files go here -------------------------------------------
+%% ----------------------------------------------------------------------------------
+\subfile{../Introduction/Introduction} %<--- Add chapters as needed
+\subfile{../cap_01/Background}
+\subfile{../cap_02/Chapter2}
+\begin{lstlisting}[caption=Listing of what an example listing would be like]
+This is a test listing
+
+The test listing has serveral lines
+to show how the listings
+will be displayed
+\end{lstlisting}
+%% ----------------------------------------------------------------------------------
+%% ----------------- End of Chapters -------------------------------------------------
+%% ----------------------------------------------------------------------------------
+%% ------------------- Appendices ---------------------------------------------------
+%% ----------------------------------------------------------------------------------
+\appendix
+\subfile{../Appendices/AppendixA}
+\clearpage
+%% ----------------------------------------------------------------------------------
+%% ---------------- End of content ---------------------------------------------------
+%% ----------------------------------------------------------------------------------
+\backmatter
+\chapter{Glossary [if relevant]}
+\printbibliography[heading=bibintoc]
+\chapter{Index [if relevant]}
+\end{document}

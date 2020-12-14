@@ -1,7 +1,7 @@
 # LateX-template-PhD-UoS
 PhD thesis and reports LateX template - ECS University of Southampton
 
-Last Update 02/09/2019
+Last Update 14/12/2020
 
 (To be compiled with XeLateX or LuaTeX)
 
@@ -22,7 +22,7 @@ Structure:
 Copy the template required in tex folder and compile from the main/Progress.tex 
 
 
-In the *Progress.tex* document:   
+In the *Progress.tex* and *Thesis.tex* document:   
 
 The `\authorshipdeclaration{}` takes no argument. It only produces a declaration page if you are using the `ecsthesis` class.   
 
