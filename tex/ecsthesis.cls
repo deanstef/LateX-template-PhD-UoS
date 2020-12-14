@@ -7,7 +7,7 @@
 %% ecsdocs.dtx  (with options: `thesis')
 %% 
 %% Copyright (C) 2001 by Steve R. Gunn
-%% Modifications Copyright (C) 2019 by Stefano De Angelis
+%% Modifications Copyright (C) 2020 by Stefano De Angelis
 %% 
 %% This file is part of the ECSDocs and UoSDocs classes distribution
 %% 
